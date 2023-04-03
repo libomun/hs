@@ -1,0 +1,108 @@
+{% extends "home/base.html" %}
+{% load static %}
+{% block css %}
+<style>
+
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+            color: #64c6c4;
+        }
+
+        .chatbot-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #f7f7f7;
+            overflow-y: scroll;
+            height: 500px;
+        }
+
+        .user-message {
+            background-color: #64c6c4;
+            color: white;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 70%;
+            float: left;
+            clear: both;
+        }
+
+        .chatbot-message {
+            background-color: #ddd;
+            color: black;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 70%;
+            float: left;
+            clear: both;
+        }
+
+        .input-container {
+            max-width: 800px;
+            margin: 20px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            font-size: 16px;
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+
+        button[type="submit"] {
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            background-color: #64c6c4;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #46B9CC;
+        }
+</style>
+{% endblock %}
+{% block content %}
+    <br>
+    <h2>Healthcare Chatbot</h2>
+    <div id="chatbot-container" class="chatbot-container">
+        {% for chatbot_message in chatbot_messages reversed %}
+            {% if chatbot_message.user_input %}
+                <p class="user-message"><strong>User:</strong> {{ chatbot_message.user_input }}</p>
+            {% endif %}
+            {% if chatbot_message.chatbot_response %}
+                <p class="chatbot-message"><strong>Chatbot:</strong> {{ chatbot_message.chatbot_response }}</p>
+            {% endif %}
+        {% empty %}
+            <p>No messages yet.</p>
+        {% endfor %}
+    </div>
+    <form action="{% url 'chatbot:chatbot' %}" method="post" class="input-container" onsubmit="scrollToBottom()">
+        {% csrf_token %}
+        <input type="text" name="user_input" placeholder="Type your message here...">
+        <button type="submit">Send</button>
+    </form>
+<script>
+    function scrollToBottom() {
+        var chatbotContainer = document.getElementById("chatbot-container");
+        chatbotContainer.scrollTop = chatbotContainer.scrollHeight;
+    }
+    window.onload = function() {
+        scrollToBottom();
+    };
+</script>
+{% endblock %}
+

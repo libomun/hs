@@ -1,0 +1,68 @@
+{% extends "home/base.html" %}
+{% load static %}
+{% block content %}
+<main>
+
+  <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+          <img src="{% static 'img/dbg.png' %}" class="bd-placeholder-img" alt="..." width="100%" height="100%">
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Marketing messaging and featurettes
+  ================================================== -->
+  <!-- Wrap the rest of the page in another container to center all the content. -->
+
+  <div class="container marketing">
+
+    <!-- Three columns of text below the carousel -->
+    <div class="row">
+    {% if doctor%}
+      {% for doctor in doctor %}
+      <div class="col-lg-4">
+        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <image xlink:href="{{doctor.photo.url }}" x="0" y="0" height="100%" width="100%" ></image>
+        </svg>
+
+        <h2 class="fw-normal">{{ doctor.name }}</h2>
+        <p>{{ doctor.bio }}</p>
+        <p><a class="btn btn-secondary" href="{% url 'appointment:doctor_detail' doctor.id %}">View details &raquo;</a></p>
+      </div><!-- /.col-lg-4 -->
+      {% endfor %}
+    {% endif %}
+    </div><!-- /.row -->
+
+
+    <!-- START THE FEATURETTES -->
+
+    <hr class="featurette-divider">
+   {%  if news %}
+       {% for news in news %}
+        <div class="row featurette">
+          <div class="col-md-7">
+            <h2 class="featurette-heading fw-normal lh-1">{{ news.title }}</h2>
+            <p class="lead">{{news.news_content|truncatewords:30|striptags }}</p>
+          </div>
+          <div class="col-md-5">
+            <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <image xlink:href="{{news.cover_img.url }}" x="0" y="0" height="100%" width="100%" ></image>
+            </svg>
+
+          </div>
+        </div>
+
+        <hr class="featurette-divider">
+     {% endfor %}
+   {% endif %}
+
+
+
+    <!-- /END THE FEATURETTES -->
+
+  </div><!-- /.container -->
+
+</main>
+{% endblock %}
