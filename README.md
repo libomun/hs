@@ -5,10 +5,10 @@ It provides an alternative to the traditional healthcare services and upgrades o
 This system significantly improves access to medical services and provides patients with a more convenient and cost-effective way of seeking medical services.
 
 ## documentation 
-Class diagram
+### Class diagram
 ![image](https://github.com/libomun/hs/assets/99610621/826415d0-813e-4ab6-b043-e92fc109c496)
 
-Architecture
+### Architecture
 ![image](https://github.com/libomun/hs/assets/99610621/25d91e2a-04b1-4700-9e08-902ea6a55318)
 
 ## Onlie healthcate system
